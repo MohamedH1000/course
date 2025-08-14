@@ -1,8 +1,6 @@
 // Cloudinary configuration and utilities
 export const CLOUDINARY_CONFIG = {
   cloudName: process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME || "your-cloud-name",
-  apiKey: process.env.NEXT_PUBLIC_CLOUDINARY_API_KEY || "your-api-key",
-  apiSecret: process.env.CLOUDINARY_API_SECRET || "your-api-secret",
   uploadPreset: process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET || "course-videos",
 }
 
