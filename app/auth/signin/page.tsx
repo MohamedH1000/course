@@ -48,17 +48,17 @@ export default function SignInPage() {
             <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
               <BookOpen className="h-6 w-6 text-primary-foreground" />
             </div>
-            <span className="text-2xl font-serif font-bold text-foreground">EduPlatform</span>
+            <span className="text-2xl font-serif font-bold text-foreground">{t("auth.signin.brand")}</span>
           </div>
           <h1 className="text-2xl font-bold text-foreground">{t("nav.signin")}</h1>
-          <p className="text-muted-foreground mt-2">Welcome back! Please sign in to your account.</p>
+          <p className="text-muted-foreground mt-2">{t("auth.signin.welcome")}</p>
         </div>
 
         <Card className="border-border/50 shadow-lg">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-xl text-center">Sign in to your account</CardTitle>
+            <CardTitle className="text-xl text-center">{t("auth.signin.title")}</CardTitle>
             <CardDescription className="text-center">
-              Enter your email and password to access your courses
+              {t("auth.signin.subtitle")}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -70,11 +70,11 @@ export default function SignInPage() {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t("auth.signin.email")}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder={t("auth.signin.email.placeholder")}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -83,12 +83,12 @@ export default function SignInPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("auth.signin.password")}</Label>
                 <div className="relative">
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder="Enter your password"
+                    placeholder={t("auth.signin.password.placeholder")}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -115,7 +115,7 @@ export default function SignInPage() {
                   href="/auth/forgot-password"
                   className="text-sm text-primary hover:text-primary/80 transition-colors"
                 >
-                  Forgot password?
+                  {t("auth.signin.forgot")}
                 </Link>
               </div>
 
@@ -127,30 +127,30 @@ export default function SignInPage() {
                 {loading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Signing in...
+                    {t("auth.signin.signing")}
                   </>
                 ) : (
-                  "Sign In"
+                  t("auth.signin.button")
                 )}
               </Button>
             </form>
 
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
-                Don't have an account?{" "}
+                {t("auth.signin.no_account")}{" "}
                 <Link href="/auth/signup" className="text-primary hover:text-primary/80 font-medium transition-colors">
-                  Sign up
+                  {t("auth.signin.signup_link")}
                 </Link>
               </p>
             </div>
 
             <div className="mt-4 p-3 bg-muted/50 rounded-lg">
-              <p className="text-xs text-muted-foreground text-center mb-2">Demo Credentials:</p>
+              <p className="text-xs text-muted-foreground text-center mb-2">{t("auth.signin.demo")}</p>
               <div className="text-xs space-y-1">
-                <div>Admin: admin@eduplatform.com</div>
-                <div>Instructor: instructor@eduplatform.com</div>
-                <div>Student: student@eduplatform.com</div>
-                <div className="font-medium">Password: password123</div>
+                <div>{t("auth.signin.admin")}</div>
+                <div>{t("auth.signin.instructor")}</div>
+                <div>{t("auth.signin.student")}</div>
+                <div className="font-medium">{t("auth.signin.demo_password")}</div>
               </div>
             </div>
           </CardContent>

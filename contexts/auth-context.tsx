@@ -18,11 +18,13 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined)
 export function AuthProvider({ children }: { children: React.ReactNode }) {
   const [user, setUser] = useState<User | null>(null)
   const [loading, setLoading] = useState(true)
+  const [isHydrated, setIsHydrated] = useState(false)
 
   useEffect(() => {
     // Check for existing session on mount
     const initializeAuth = async () => {
       try {
+        setIsHydrated(true)
         const token = localStorage.getItem("auth-token")
         if (token) {
           const currentUser = await authAPI.getCurrentUser(token)

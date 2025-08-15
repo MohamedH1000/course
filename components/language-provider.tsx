@@ -43,6 +43,26 @@ const translations = {
     "features.certificate": "Certificates",
     "features.certificate.desc": "Earn recognized certificates upon course completion",
 
+    // Auth
+    "auth.signin.title": "Sign in to your account",
+    "auth.signin.subtitle": "Enter your email and password to access your courses",
+    "auth.signin.welcome": "Welcome back! Please sign in to your account.",
+    "auth.signin.email": "Email",
+    "auth.signin.email.placeholder": "Enter your email",
+    "auth.signin.password": "Password",
+    "auth.signin.password.placeholder": "Enter your password",
+    "auth.signin.forgot": "Forgot password?",
+    "auth.signin.button": "Sign In",
+    "auth.signin.signing": "Signing in...",
+    "auth.signin.no_account": "Don't have an account?",
+    "auth.signin.signup_link": "Sign up",
+    "auth.signin.demo": "Demo Credentials:",
+    "auth.signin.admin": "Admin: admin@eduplatform.com",
+    "auth.signin.instructor": "Instructor: instructor@eduplatform.com",
+    "auth.signin.student": "Student: student@eduplatform.com",
+    "auth.signin.demo_password": "Password: password123",
+    "auth.signin.brand": "EduPlatform",
+
     // Common
     "common.loading": "Loading...",
     "common.error": "Something went wrong",
@@ -81,6 +101,26 @@ const translations = {
     "features.certificate": "شهادات",
     "features.certificate.desc": "احصل على شهادات معترف بها عند إكمال الدورة",
 
+    // Auth
+    "auth.signin.title": "تسجيل الدخول إلى حسابك",
+    "auth.signin.subtitle": "أدخل بريدك الإلكتروني وكلمة المرور للوصول إلى دوراتك",
+    "auth.signin.welcome": "مرحباً بعودتك! يرجى تسجيل الدخول إلى حسابك.",
+    "auth.signin.email": "البريد الإلكتروني",
+    "auth.signin.email.placeholder": "أدخل بريدك الإلكتروني",
+    "auth.signin.password": "كلمة المرور",
+    "auth.signin.password.placeholder": "أدخل كلمة المرور",
+    "auth.signin.forgot": "نسيت كلمة المرور؟",
+    "auth.signin.button": "تسجيل الدخول",
+    "auth.signin.signing": "جاري تسجيل الدخول...",
+    "auth.signin.no_account": "ليس لديك حساب؟",
+    "auth.signin.signup_link": "إنشاء حساب",
+    "auth.signin.demo": "بيانات تجريبية:",
+    "auth.signin.admin": "مدير: admin@eduplatform.com",
+    "auth.signin.instructor": "مدرب: instructor@eduplatform.com",
+    "auth.signin.student": "طالب: student@eduplatform.com",
+    "auth.signin.demo_password": "كلمة المرور: password123",
+    "auth.signin.brand": "منصة التعليم",
+
     // Common
     "common.loading": "جاري التحميل...",
     "common.error": "حدث خطأ ما",
@@ -95,8 +135,10 @@ const translations = {
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguage] = useState<Language>("en")
+  const [isHydrated, setIsHydrated] = useState(false)
 
   useEffect(() => {
+    setIsHydrated(true)
     const savedLang = localStorage.getItem("language") as Language
     if (savedLang && (savedLang === "en" || savedLang === "ar")) {
       setLanguage(savedLang)

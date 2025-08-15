@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider"
 import { LanguageProvider } from "@/components/language-provider"
 import { AuthProvider } from "@/contexts/auth-context"
 import "./globals.css"
+import Header from "./components/Header"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -31,10 +32,21 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`}>
-        <ThemeProvider attribute="class" defaultTheme="light" enableSystem disableTransitionOnChange={false}>
+      <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`} suppressHydrationWarning>
+        <ThemeProvider
+          attribute="class"
+          defaultTheme="light"
+          enableSystem
+          disableTransitionOnChange={false}
+        >
           <LanguageProvider>
-            <AuthProvider>{children}</AuthProvider>
+            <AuthProvider>
+              <>
+                {/* Header */}
+     
+      <Header />
+      {children}
+      </></AuthProvider>
           </LanguageProvider>
         </ThemeProvider>
       </body>
