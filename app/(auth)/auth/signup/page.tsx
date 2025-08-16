@@ -14,6 +14,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { useAuth } from "@/contexts/auth-context"
 import { useLanguage } from "@/components/language-provider"
 import { BookOpen, Eye, EyeOff, Loader2 } from "lucide-react"
+import { FcGoogle } from "react-icons/fc"
 
 export default function SignUpPage() {
   const [name, setName] = useState("")
@@ -26,7 +27,7 @@ export default function SignUpPage() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
-  const { register } = useAuth()
+  const { register, loginWithGoogle } = useAuth()
   const { t } = useLanguage()
   const router = useRouter()
 
@@ -35,12 +36,12 @@ export default function SignUpPage() {
     setError("")
 
     if (password !== confirmPassword) {
-      setError("Passwords do not match")
+      setError(t("auth.signup.error.password_mismatch"))
       return
     }
 
     if (password.length < 6) {
-      setError("Password must be at least 6 characters long")
+      setError(t("auth.signup.error.password_length"))
       return
     }
 
@@ -59,21 +60,12 @@ export default function SignUpPage() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-background via-primary/5 to-accent/5 p-4">
       <div className="w-full max-w-md">
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center space-x-2 mb-4">
-            <div className="w-10 h-10 bg-gradient-to-br from-primary to-accent rounded-lg flex items-center justify-center">
-              <BookOpen className="h-6 w-6 text-primary-foreground" />
-            </div>
-            <span className="text-2xl font-serif font-bold text-foreground">EduPlatform</span>
-          </div>
-          <h1 className="text-2xl font-bold text-foreground">{t("nav.signup")}</h1>
-          <p className="text-muted-foreground mt-2">Create your account to start learning</p>
-        </div>
+     
 
         <Card className="border-border/50 shadow-lg">
           <CardHeader className="space-y-1">
-            <CardTitle className="text-xl text-center">Create your account</CardTitle>
-            <CardDescription className="text-center">Join thousands of learners on our platform</CardDescription>
+            <CardTitle className="text-xl text-center">{t("auth.signup.title")}</CardTitle>
+            <CardDescription className="text-center">{t("auth.signup.subtitle")}</CardDescription>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit} className="space-y-4">
@@ -84,11 +76,11 @@ export default function SignUpPage() {
               )}
 
               <div className="space-y-2">
-                <Label htmlFor="name">Full Name</Label>
+                <Label htmlFor="name">{t("auth.signup.name")}</Label>
                 <Input
                   id="name"
                   type="text"
-                  placeholder="Enter your full name"
+                  placeholder={t("auth.signup.name.placeholder")}
                   value={name}
                   onChange={(e) => setName(e.target.value)}
                   required
@@ -97,11 +89,11 @@ export default function SignUpPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
+                <Label htmlFor="email">{t("auth.signup.email")}</Label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder={t("auth.signup.email.placeholder")}
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   required
@@ -110,25 +102,25 @@ export default function SignUpPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="role">Account Type</Label>
+                <Label htmlFor="role">{t("auth.signup.role")}</Label>
                 <Select value={role} onValueChange={(value: "student" | "instructor") => setRole(value)}>
                   <SelectTrigger className="transition-all duration-200 focus:ring-2 focus:ring-primary/20">
-                    <SelectValue placeholder="Select your role" />
+                    <SelectValue placeholder={t("auth.signup.role.placeholder")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="student">Student - Learn from courses</SelectItem>
-                    <SelectItem value="instructor">Instructor - Create and teach courses</SelectItem>
+                    <SelectItem value="student">{t("auth.signup.role.student")}</SelectItem>
+                    <SelectItem value="instructor">{t("auth.signup.role.instructor")}</SelectItem>
                   </SelectContent>
                 </Select>
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
+                <Label htmlFor="password">{t("auth.signup.password")}</Label>
                 <div className="relative">
                   <Input
                     id="password"
                     type={showPassword ? "text" : "password"}
-                    placeholder="Create a password"
+                    placeholder={t("auth.signup.password.placeholder")}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     required
@@ -151,12 +143,12 @@ export default function SignUpPage() {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="confirmPassword">Confirm Password</Label>
+                <Label htmlFor="confirmPassword">{t("auth.signup.confirm_password")}</Label>
                 <div className="relative">
                   <Input
                     id="confirmPassword"
                     type={showConfirmPassword ? "text" : "password"}
-                    placeholder="Confirm your password"
+                    placeholder={t("auth.signup.confirm_password.placeholder")}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     required
@@ -186,19 +178,53 @@ export default function SignUpPage() {
                 {loading ? (
                   <>
                     <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Creating account...
+                    {t("auth.signup.creating")}
                   </>
                 ) : (
-                  "Create Account"
+                  t("auth.signup.button")
                 )}
               </Button>
             </form>
 
+            <div className="mt-6">
+              <div className="relative">
+                <div className="absolute inset-0 flex items-center">
+                  <span className="w-full border-t" />
+                </div>
+                <div className="relative flex justify-center text-xs uppercase">
+                  <span className="bg-background px-2 text-muted-foreground">
+                    Or continue with
+                  </span>
+                </div>
+              </div>
+
+              <Button
+                type="button"
+                variant="outline"
+                className="w-full mt-4"
+                onClick={async () => {
+                  try {
+                    setLoading(true)
+                    await loginWithGoogle()
+                    router.push("/dashboard")
+                  } catch (err) {
+                    setError(err instanceof Error ? err.message : "Google sign-in failed")
+                  } finally {
+                    setLoading(false)
+                  }
+                }}
+                disabled={loading}
+              >
+                <FcGoogle className="mr-2 h-4 w-4" />
+                Sign up with Google
+              </Button>
+            </div>
+
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
-                Already have an account?{" "}
+                {t("auth.signup.have_account")}{" "}
                 <Link href="/auth/signin" className="text-primary hover:text-primary/80 font-medium transition-colors">
-                  Sign in
+                  {t("auth.signup.signin_link")}
                 </Link>
               </p>
             </div>

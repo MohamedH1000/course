@@ -13,6 +13,7 @@ import { useLanguage } from "@/components/language-provider"
 import { type Course, type CourseProgress, courseAPI } from "@/lib/courses"
 import { BookOpen, Clock, Award, TrendingUp, Play, Settings, Bell, Download } from "lucide-react"
 import Link from "next/link"
+import { cn } from "@/lib/utils"
 
 interface DashboardStats {
   totalCourses: number
@@ -28,7 +29,7 @@ interface EnrolledCourse extends Course {
 
 function DashboardPage() {
   const { user } = useAuth()
-  const { t } = useLanguage()
+  const { t, isRTL } = useLanguage()
   const [enrolledCourses, setEnrolledCourses] = useState<EnrolledCourse[]>([])
   const [stats, setStats] = useState<DashboardStats>({
     totalCourses: 0,
@@ -104,9 +105,9 @@ function DashboardPage() {
 
   const getGreeting = () => {
     const hour = new Date().getHours()
-    if (hour < 12) return "Good morning"
-    if (hour < 18) return "Good afternoon"
-    return "Good evening"
+    if (hour < 12) return t("dashboard.good_morning") || "Good morning"
+    if (hour < 18) return t("dashboard.good_afternoon") || "Good afternoon"
+    return t("dashboard.good_evening") || "Good evening"
   }
 
   if (loading) {
@@ -118,7 +119,7 @@ function DashboardPage() {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className={cn("min-h-screen bg-background", isRTL ? "rtl" : "ltr")}>
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
         <div className="flex flex-col md:flex-row md:items-center justify-between mb-8">
@@ -126,14 +127,20 @@ function DashboardPage() {
             <h1 className="text-3xl font-serif font-bold text-foreground mb-2">
               {getGreeting()}, {user?.name}!
             </h1>
-            <p className="text-muted-foreground">Ready to continue your learning journey?</p>
+            <p className="text-muted-foreground">{t("dashboard.ready_to_continue")}</p>
           </div>
-          <div className="flex items-center gap-2 mt-4 md:mt-0">
+          <div className={cn(
+            "flex items-center gap-2 mt-4 md:mt-0",
+            isRTL ? "flex-row-reverse" : ""
+          )}>
             {user?.role === "instructor" && (
               <Button variant="outline" asChild>
-                <Link href="/instructor/videos">
-                  <Play className="h-4 w-4 mr-2" />
-                  Manage Videos
+                <Link href="/instructor/videos" className={cn(
+                  "flex items-center gap-2",
+                  isRTL ? "flex-row-reverse" : ""
+                )}>
+                  <Play className="h-4 w-4" />
+                  {t("dashboard.manage_videos")}
                 </Link>
               </Button>
             )}
@@ -150,11 +157,14 @@ function DashboardPage() {
         <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
           <Card className="border-border/50">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2">
+              <div className={cn(
+                "flex items-center gap-2",
+                isRTL ? "flex-row-reverse" : ""
+              )}>
                 <BookOpen className="h-5 w-5 text-primary" />
                 <div>
                   <p className="text-2xl font-bold text-foreground">{stats.totalCourses}</p>
-                  <p className="text-xs text-muted-foreground">Enrolled</p>
+                  <p className="text-xs text-muted-foreground">{t("dashboard.enrolled")}</p>
                 </div>
               </div>
             </CardContent>
@@ -162,11 +172,14 @@ function DashboardPage() {
 
           <Card className="border-border/50">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2">
+              <div className={cn(
+                "flex items-center gap-2",
+                isRTL ? "flex-row-reverse" : ""
+              )}>
                 <Award className="h-5 w-5 text-green-500" />
                 <div>
                   <p className="text-2xl font-bold text-foreground">{stats.completedCourses}</p>
-                  <p className="text-xs text-muted-foreground">Completed</p>
+                  <p className="text-xs text-muted-foreground">{t("dashboard.completed")}</p>
                 </div>
               </div>
             </CardContent>
@@ -174,11 +187,14 @@ function DashboardPage() {
 
           <Card className="border-border/50">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2">
+              <div className={cn(
+                "flex items-center gap-2",
+                isRTL ? "flex-row-reverse" : ""
+              )}>
                 <Clock className="h-5 w-5 text-blue-500" />
                 <div>
                   <p className="text-2xl font-bold text-foreground">{stats.totalHours}h</p>
-                  <p className="text-xs text-muted-foreground">Learning</p>
+                  <p className="text-xs text-muted-foreground">{t("dashboard.learning")}</p>
                 </div>
               </div>
             </CardContent>
@@ -186,11 +202,14 @@ function DashboardPage() {
 
           <Card className="border-border/50">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2">
+              <div className={cn(
+                "flex items-center gap-2",
+                isRTL ? "flex-row-reverse" : ""
+              )}>
                 <Download className="h-5 w-5 text-purple-500" />
                 <div>
                   <p className="text-2xl font-bold text-foreground">{stats.certificates}</p>
-                  <p className="text-xs text-muted-foreground">Certificates</p>
+                  <p className="text-xs text-muted-foreground">{t("dashboard.certificates")}</p>
                 </div>
               </div>
             </CardContent>
@@ -198,11 +217,14 @@ function DashboardPage() {
 
           <Card className="border-border/50">
             <CardContent className="p-4">
-              <div className="flex items-center gap-2">
+              <div className={cn(
+                "flex items-center gap-2",
+                isRTL ? "flex-row-reverse" : ""
+              )}>
                 <TrendingUp className="h-5 w-5 text-orange-500" />
                 <div>
                   <p className="text-2xl font-bold text-foreground">{stats.currentStreak}</p>
-                  <p className="text-xs text-muted-foreground">Day Streak</p>
+                  <p className="text-xs text-muted-foreground">{t("dashboard.day_streak")}</p>
                 </div>
               </div>
             </CardContent>
@@ -212,17 +234,20 @@ function DashboardPage() {
         {/* Main Content */}
         <Tabs defaultValue="courses" className="w-full">
           <TabsList className="grid w-full grid-cols-4">
-            <TabsTrigger value="courses">My Courses</TabsTrigger>
-            <TabsTrigger value="progress">Progress</TabsTrigger>
-            <TabsTrigger value="certificates">Certificates</TabsTrigger>
-            <TabsTrigger value="profile">Profile</TabsTrigger>
+            <TabsTrigger value="courses">{t("dashboard.my_courses")}</TabsTrigger>
+            <TabsTrigger value="progress">{t("dashboard.progress")}</TabsTrigger>
+            <TabsTrigger value="certificates">{t("dashboard.certificates")}</TabsTrigger>
+            <TabsTrigger value="profile">{t("dashboard.profile")}</TabsTrigger>
           </TabsList>
 
           <TabsContent value="courses" className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-2xl font-semibold text-foreground">Continue Learning</h2>
+            <div className={cn(
+              "flex items-center justify-between",
+              isRTL ? "flex-row-reverse" : ""
+            )}>
+              <h2 className="text-2xl font-semibold text-foreground">{t("dashboard.continue_learning")}</h2>
               <Button variant="outline" asChild>
-                <Link href="/courses">Browse More Courses</Link>
+                <Link href="/courses">{t("dashboard.browse_more_courses")}</Link>
               </Button>
             </div>
 
@@ -237,9 +262,12 @@ function DashboardPage() {
                     />
                     <div className="absolute inset-0 bg-black/20 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
                       <Button size="sm" className="bg-white/90 text-black hover:bg-white" asChild>
-                        <Link href={`/learn/${course.id}`}>
-                          <Play className="mr-2 h-4 w-4" />
-                          Continue
+                        <Link href={`/learn/${course.id}`} className={cn(
+                          "flex items-center gap-2",
+                          isRTL ? "flex-row-reverse" : ""
+                        )}>
+                          <Play className="h-4 w-4" />
+                          {t("course.continue")}
                         </Link>
                       </Button>
                     </div>
@@ -280,13 +308,13 @@ function DashboardPage() {
           </TabsContent>
 
           <TabsContent value="progress" className="space-y-6">
-            <h2 className="text-2xl font-semibold text-foreground">Learning Progress</h2>
+            <h2 className="text-2xl font-semibold text-foreground">{t("dashboard.learning_progress")}</h2>
 
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Weekly Activity</CardTitle>
-                  <CardDescription>Your learning activity this week</CardDescription>
+                  <CardTitle>{t("dashboard.weekly_activity")}</CardTitle>
+                  <CardDescription>{t("dashboard.weekly_activity_desc")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -308,8 +336,8 @@ function DashboardPage() {
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Course Progress</CardTitle>
-                  <CardDescription>Progress across all enrolled courses</CardDescription>
+                  <CardTitle>{t("dashboard.course_progress")}</CardTitle>
+                  <CardDescription>{t("dashboard.course_progress_desc")}</CardDescription>
                 </CardHeader>
                 <CardContent>
                   <div className="space-y-4">
@@ -331,8 +359,8 @@ function DashboardPage() {
 
             <Card>
               <CardHeader>
-                <CardTitle>Recent Activity</CardTitle>
-                <CardDescription>Your latest learning activities</CardDescription>
+                <CardTitle>{t("dashboard.recent_activity")}</CardTitle>
+                <CardDescription>{t("dashboard.recent_activity_desc")}</CardDescription>
               </CardHeader>
               <CardContent>
                 <div className="space-y-4">
@@ -373,7 +401,7 @@ function DashboardPage() {
           </TabsContent>
 
           <TabsContent value="certificates" className="space-y-6">
-            <h2 className="text-2xl font-semibold text-foreground">Certificates & Achievements</h2>
+            <h2 className="text-2xl font-semibold text-foreground">{t("dashboard.certificates_achievements")}</h2>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
               {stats.certificates > 0 ? (
@@ -385,16 +413,19 @@ function DashboardPage() {
                           <Award className="h-8 w-8 text-primary-foreground" />
                         </div>
                         <div>
-                          <h3 className="font-semibold text-foreground">Course Completion</h3>
+                          <h3 className="font-semibold text-foreground">{t("dashboard.course_completion")}</h3>
                           <p className="text-sm text-muted-foreground">Advanced React Development</p>
                         </div>
                         <div className="text-xs text-muted-foreground">
-                          <p>Issued on February 10, 2024</p>
-                          <p>Certificate ID: CERT-{1000 + index}</p>
+                          <p>{t("dashboard.issued_on")} February 10, 2024</p>
+                          <p>{t("dashboard.certificate_id")}: CERT-{1000 + index}</p>
                         </div>
-                        <Button variant="outline" size="sm" className="w-full bg-transparent">
-                          <Download className="mr-2 h-4 w-4" />
-                          Download
+                        <Button variant="outline" size="sm" className={cn(
+                          "w-full bg-transparent flex items-center gap-2",
+                          isRTL ? "flex-row-reverse" : ""
+                        )}>
+                          <Download className="h-4 w-4" />
+                          {t("dashboard.download")}
                         </Button>
                       </div>
                     </CardContent>
@@ -403,10 +434,10 @@ function DashboardPage() {
               ) : (
                 <div className="col-span-full text-center py-12">
                   <Award className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-foreground mb-2">No certificates yet</h3>
-                  <p className="text-muted-foreground mb-4">Complete courses to earn certificates</p>
+                  <h3 className="text-xl font-semibold text-foreground mb-2">{t("dashboard.no_certificates")}</h3>
+                  <p className="text-muted-foreground mb-4">{t("dashboard.complete_courses_earn")}</p>
                   <Button asChild>
-                    <Link href="/courses">Browse Courses</Link>
+                    <Link href="/courses">{t("dashboard.browse_courses")}</Link>
                   </Button>
                 </div>
               )}
@@ -414,84 +445,96 @@ function DashboardPage() {
           </TabsContent>
 
           <TabsContent value="profile" className="space-y-6">
-            <h2 className="text-2xl font-semibold text-foreground">Profile Settings</h2>
+            <h2 className="text-2xl font-semibold text-foreground">{t("dashboard.profile_settings")}</h2>
 
             <div className="grid md:grid-cols-2 gap-6">
               <Card>
                 <CardHeader>
-                  <CardTitle>Personal Information</CardTitle>
-                  <CardDescription>Update your personal details</CardDescription>
+                  <CardTitle>{t("dashboard.personal_information")}</CardTitle>
+                  <CardDescription>{t("dashboard.personal_info_desc")}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
-                  <div className="flex items-center gap-4">
+                  <div className={cn(
+                    "flex items-center gap-4",
+                    isRTL ? "flex-row-reverse" : ""
+                  )}>
                     <Avatar className="w-20 h-20">
                       <AvatarImage src={user?.avatar || "/placeholder.svg"} />
                       <AvatarFallback className="text-lg">{user?.name?.charAt(0)}</AvatarFallback>
                     </Avatar>
                     <div>
                       <Button variant="outline" size="sm">
-                        Change Photo
+                        {t("dashboard.change_photo")}
                       </Button>
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Full Name</label>
+                    <label className="text-sm font-medium">{t("dashboard.full_name")}</label>
                     <div className="p-3 bg-muted rounded-lg">
                       <span className="text-sm">{user?.name}</span>
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Email</label>
+                    <label className="text-sm font-medium">{t("dashboard.email")}</label>
                     <div className="p-3 bg-muted rounded-lg">
                       <span className="text-sm">{user?.email}</span>
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Role</label>
+                    <label className="text-sm font-medium">{t("dashboard.role")}</label>
                     <div className="p-3 bg-muted rounded-lg">
                       <Badge variant="secondary">{user?.role}</Badge>
                     </div>
                   </div>
 
-                  <Button className="w-full">Update Profile</Button>
+                  <Button className="w-full">{t("dashboard.update_profile")}</Button>
                 </CardContent>
               </Card>
 
               <Card>
                 <CardHeader>
-                  <CardTitle>Learning Preferences</CardTitle>
-                  <CardDescription>Customize your learning experience</CardDescription>
+                  <CardTitle>{t("dashboard.learning_preferences")}</CardTitle>
+                  <CardDescription>{t("dashboard.learning_preferences_desc")}</CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Preferred Language</label>
+                    <label className="text-sm font-medium">{t("dashboard.preferred_language")}</label>
                     <div className="p-3 bg-muted rounded-lg">
                       <span className="text-sm">English</span>
                     </div>
                   </div>
 
                   <div className="space-y-2">
-                    <label className="text-sm font-medium">Email Notifications</label>
+                    <label className="text-sm font-medium">{t("dashboard.email_notifications")}</label>
                     <div className="space-y-2">
-                      <label className="flex items-center gap-2 text-sm">
+                      <label className={cn(
+                        "flex items-center gap-2 text-sm",
+                        isRTL ? "flex-row-reverse" : ""
+                      )}>
                         <input type="checkbox" defaultChecked className="rounded" />
-                        Course updates
+                        {t("dashboard.course_updates")}
                       </label>
-                      <label className="flex items-center gap-2 text-sm">
+                      <label className={cn(
+                        "flex items-center gap-2 text-sm",
+                        isRTL ? "flex-row-reverse" : ""
+                      )}>
                         <input type="checkbox" defaultChecked className="rounded" />
-                        New course recommendations
+                        {t("dashboard.course_recommendations")}
                       </label>
-                      <label className="flex items-center gap-2 text-sm">
+                      <label className={cn(
+                        "flex items-center gap-2 text-sm",
+                        isRTL ? "flex-row-reverse" : ""
+                      )}>
                         <input type="checkbox" className="rounded" />
-                        Marketing emails
+                        {t("dashboard.marketing_emails")}
                       </label>
                     </div>
                   </div>
 
-                  <Button className="w-full">Save Preferences</Button>
+                  <Button className="w-full">{t("dashboard.save_preferences")}</Button>
                 </CardContent>
               </Card>
             </div>

@@ -1,9 +1,7 @@
 import type React from "react"
 import type { Metadata } from "next"
 import { Inter, Playfair_Display } from "next/font/google"
-import { ThemeProvider } from "@/components/theme-provider"
-import { LanguageProvider } from "@/components/language-provider"
-import { AuthProvider } from "@/contexts/auth-context"
+import { Providers } from "@/components/providers"
 import "./globals.css"
 import Header from "./components/Header"
 
@@ -33,22 +31,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`} suppressHydrationWarning>
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          enableSystem
-          disableTransitionOnChange={false}
-        >
-          <LanguageProvider>
-            <AuthProvider>
-              <>
-                {/* Header */}
-     
-      <Header />
-      {children}
-      </></AuthProvider>
-          </LanguageProvider>
-        </ThemeProvider>
+        <Providers>
+          <Header />
+          {children}
+        </Providers>
       </body>
     </html>
   )
