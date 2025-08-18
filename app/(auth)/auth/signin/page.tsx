@@ -136,7 +136,7 @@ export default function SignInPage() {
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
                   <span className="bg-background px-2 text-muted-foreground">
-                    Or continue with
+                    {t("or.continue.with")}
                   </span>
                 </div>
               </div>
@@ -159,7 +159,7 @@ export default function SignInPage() {
                 disabled={loading}
               >
                 <FcGoogle className="mr-2 h-4 w-4" />
-                Sign in with Google
+                {t("auth.signup.google")}
               </Button>
             </div>
 
@@ -172,15 +172,6 @@ export default function SignInPage() {
               </p>
             </div>
 
-            <div className="mt-4 p-3 bg-muted/50 rounded-lg">
-              <p className="text-xs text-muted-foreground text-center mb-2">{t("auth.signin.demo")}</p>
-              <div className="text-xs space-y-1">
-                <div>{t("auth.signin.admin")}</div>
-                <div>{t("auth.signin.instructor")}</div>
-                <div>{t("auth.signin.student")}</div>
-                <div className="font-medium">{t("auth.signin.demo_password")}</div>
-              </div>
-            </div>
           </CardContent>
         </Card>
       </div>

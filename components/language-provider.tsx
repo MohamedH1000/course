@@ -84,13 +84,14 @@ const translations = {
     "auth.signin.student": "Student: student@eduplatform.com",
     "auth.signin.demo_password": "Password: password123",
     "auth.signin.brand": "EduPlatform",
-
+    "or.continue.with": "or continue with",
     // Auth - Signup
     "auth.signup.title": "Create your account",
     "auth.signup.subtitle": "Join thousands of learners on our platform",
     "auth.signup.welcome": "Create your account to start learning",
     "auth.signup.name": "Full Name",
     "auth.signup.name.placeholder": "Enter your full name",
+    "auth.signup.google": "Sign up with Google",
     "auth.signup.email": "Email",
     "auth.signup.email.placeholder": "Enter your email",
     "auth.signup.role": "Account Type",
@@ -327,9 +328,10 @@ const translations = {
     "auth.signin.student": "طالب: student@eduplatform.com",
     "auth.signin.demo_password": "كلمة المرور: password123",
     "auth.signin.brand": "منصة التعليم",
-
+    "or.continue.with": "أو أكمل بإستخدام",
     // Auth - Signup
     "auth.signup.title": "إنشاء حسابك",
+    "auth.signup.google": "قم بالتسجيل باستخدام جوجل",
     "auth.signup.subtitle": "انضم إلى آلاف المتعلمين على منصتنا",
     "auth.signup.welcome": "أنشئ حسابك لبدء التعلم",
     "auth.signup.name": "الاسم الكامل",

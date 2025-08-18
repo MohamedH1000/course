@@ -1,4 +1,4 @@
-import { NextAuthOptions } from "next-auth"
+import { NextAuthOptions, Profile } from "next-auth"
 import { PrismaAdapter } from "@auth/prisma-adapter"
 import GoogleProvider from "next-auth/providers/google"
 import CredentialsProvider from "next-auth/providers/credentials"
@@ -6,12 +6,29 @@ import { prisma } from "@/lib/prisma"
 import bcrypt from "bcryptjs"
 import { Adapter } from "next-auth/adapters"
 
+interface GoogleProfile extends Profile {
+  given_name?: string
+  family_name?: string
+  picture?: string
+  email_verified?: boolean
+}
+
 export const authOptions: NextAuthOptions = {
   adapter: PrismaAdapter(prisma) as Adapter,
   providers: [
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID!,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET!,
+      profile(profile) {
+        // Map Google profile to our user schema
+        return {
+          id: profile.sub,
+          email: profile.email,
+          name: profile.name,
+          image: profile.picture,
+          role: 'student' // Default role for new Google users
+        }
+      }
     }),
     CredentialsProvider({
       name: "credentials",
@@ -54,7 +71,7 @@ export const authOptions: NextAuthOptions = {
           name: user.firstName && user.lastName 
             ? `${user.firstName} ${user.lastName}` 
             : user.firstName || user.email,
-          image: user.avatar,
+          image: user.avatar || undefined,
           role: user.instructorProfile ? 'instructor' : 'student'
         }
       }
@@ -64,45 +81,21 @@ export const authOptions: NextAuthOptions = {
     strategy: "jwt"
   },
   callbacks: {
-    async jwt({ token, user, account, profile }) {
-      if (user) {
-        token.role = user.role
+    async jwt({ token, user, account, profile, trigger }) {
+      // When user first signs in
+      if (account && user) {
+        token.role = user.role || 'student'
+        token.userId = user.id
       }
       
-      // Handle Google sign-in
-      if (account?.provider === "google" && profile) {
-        const existingUser = await prisma.user.findUnique({
-          where: { email: profile.email! },
-          include: {
-            instructorProfile: true,
-            studentProfile: true
-          }
+      // For subsequent requests, get the role from database
+      if (token.userId && !token.role) {
+        const dbUser = await prisma.user.findUnique({
+          where: { id: token.userId as string },
+          select: { role: true }
         })
-
-        if (existingUser) {
-          token.role = existingUser.instructorProfile ? 'instructor' : 'student'
-        } else {
-          // Create new user with Google data
-          const newUser = await prisma.user.create({
-            data: {
-              email: profile.email!,
-              firstName: profile.given_name || profile.name?.split(' ')[0],
-              lastName: profile.family_name || profile.name?.split(' ').slice(1).join(' '),
-              avatar: profile.picture,
-              emailVerified: true,
-              profile: {
-                create: {
-                  profileVisibility: 'public'
-                }
-              },
-              studentProfile: {
-                create: {
-                  skillLevel: 'beginner'
-                }
-              }
-            }
-          })
-          token.role = 'student'
+        if (dbUser) {
+          token.role = dbUser.role || 'student'
         }
       }
 
@@ -116,20 +109,129 @@ export const authOptions: NextAuthOptions = {
       return session
     },
     async signIn({ user, account, profile }) {
-      if (account?.provider === "google") {
-        return true
+      if (account?.provider === "google" && profile?.email) {
+        try {
+          const googleProfile = profile as GoogleProfile
+          
+          // Check if user exists
+          const existingUser = await prisma.user.findUnique({
+            where: { email: googleProfile.email! },
+            include: {
+              profile: true,
+              studentProfile: true,
+              instructorProfile: true
+            }
+          })
+
+          if (!existingUser) {
+            // Create user with additional fields
+            await prisma.user.create({
+              data: {
+                email: googleProfile.email!,
+                firstName: googleProfile.given_name || googleProfile.name?.split(' ')[0] || 'Google',
+                lastName: googleProfile.family_name || googleProfile.name?.split(' ').slice(1).join(' ') || 'User',
+                avatar: googleProfile.picture || '',
+                emailVerified: new Date(),
+                role: 'student',
+                profile: {
+                  create: {
+                    profileVisibility: 'public'
+                  }
+                },
+                studentProfile: {
+                  create: {
+                    skillLevel: 'beginner'
+                  }
+                }
+              }
+            })
+            console.log('Created new Google user:', googleProfile.email)
+          } else {
+            // Update existing user if needed
+            if (!existingUser.profile) {
+              await prisma.userProfile.create({
+                data: {
+                  userId: existingUser.id,
+                  profileVisibility: 'public'
+                }
+              })
+            }
+            if (!existingUser.studentProfile && !existingUser.instructorProfile) {
+              await prisma.studentProfile.create({
+                data: {
+                  userId: existingUser.id,
+                  skillLevel: 'beginner'
+                }
+              })
+            }
+            console.log('Google user already exists:', googleProfile.email)
+          }
+          
+          return true
+        } catch (error) {
+          console.error('Error during Google sign-in:', error)
+          return false
+        }
       }
       return true
     }
   },
   pages: {
     signIn: "/auth/signin",
-    signUp: "/auth/signup",
   },
   events: {
     async createUser({ user }) {
       // This runs when a new user is created via OAuth
-      console.log("New user created:", user.email)
+      console.log("New user created via OAuth:", user.email)
+      
+      // Ensure the user has the required fields
+      try {
+        const dbUser = await prisma.user.findUnique({
+          where: { email: user.email! },
+          include: {
+            profile: true,
+            studentProfile: true
+          }
+        })
+        
+        if (dbUser) {
+          console.log("User found in database:", dbUser.email)
+          
+          // Create profile if it doesn't exist
+          if (!dbUser.profile) {
+            await prisma.userProfile.create({
+              data: {
+                userId: dbUser.id,
+                profileVisibility: 'public'
+              }
+            })
+            console.log("Created user profile for:", dbUser.email)
+          }
+          
+          // Create student profile if it doesn't exist
+          if (!dbUser.studentProfile) {
+            await prisma.studentProfile.create({
+              data: {
+                userId: dbUser.id,
+                skillLevel: 'beginner'
+              }
+            })
+            console.log("Created student profile for:", dbUser.email)
+          }
+          
+          // Update role if not set
+          if (!dbUser.role) {
+            await prisma.user.update({
+              where: { id: dbUser.id },
+              data: { role: 'student' }
+            })
+            console.log("Updated role for:", dbUser.email)
+          }
+        }
+      } catch (error) {
+        console.error("Error in createUser event:", error)
+      }
     }
-  }
+  },
+  debug: process.env.NODE_ENV === 'development' // Enable debug mode in development
 }

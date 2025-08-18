@@ -31,7 +31,7 @@ interface AuthContextType {
   register: (credentials: RegisterCredentials) => Promise<void>
   logout: () => Promise<void>
   isAuthenticated: boolean
-  loginWithGoogle: () => Promise<void>
+  loginWithGoogle: () => Promise<boolean>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -89,7 +89,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }) {
   }
 
   const loginWithGoogle = async () => {
-    await signIn("google", { redirect: false })
+    const result = await signIn("google", { redirect: false })
+    if (result?.error) {
+      throw new Error(result.error)
+    }
+    return true
   }
 
   const value = {

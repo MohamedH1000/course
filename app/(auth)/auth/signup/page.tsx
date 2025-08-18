@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
@@ -30,9 +30,11 @@ export default function SignUpPage() {
   const { register, loginWithGoogle, user } = useAuth()
   const { t } = useLanguage()
   const router = useRouter()
-  if (user) {
-    router.push("/dashboard")
-  }
+    useEffect(() => {
+      if (user) {
+        router.push("/dashboard")
+      }
+    }, [user, router])
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")
@@ -195,7 +197,7 @@ export default function SignUpPage() {
                 </div>
                 <div className="relative flex justify-center text-xs uppercase">
                   <span className="bg-background px-2 text-muted-foreground">
-                    Or continue with
+                    {t("or.continue.with")}
                   </span>
                 </div>
               </div>
@@ -208,7 +210,7 @@ export default function SignUpPage() {
                   try {
                     setLoading(true)
                     await loginWithGoogle()
-                    router.push("/dashboard")
+                    // Don't redirect here - let useEffect handle it when user state updates
                   } catch (err) {
                     setError(err instanceof Error ? err.message : "Google sign-in failed")
                   } finally {
@@ -218,7 +220,7 @@ export default function SignUpPage() {
                 disabled={loading}
               >
                 <FcGoogle className="mr-2 h-4 w-4" />
-                Sign up with Google
+                {t("auth.signup.google")}
               </Button>
             </div>
 
