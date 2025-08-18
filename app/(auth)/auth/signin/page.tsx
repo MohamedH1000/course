@@ -22,10 +22,12 @@ export default function SignInPage() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
-  const { login, loginWithGoogle } = useAuth()
+  const { login, loginWithGoogle, user } = useAuth()
   const { t } = useLanguage()
   const router = useRouter()
-
+  if (user) {
+    router.push("/dashboard")
+  }
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")

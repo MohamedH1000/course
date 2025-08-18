@@ -18,6 +18,7 @@ export default function CoursesPage() {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [selectedLevel, setSelectedLevel] = useState<string>("all")
   const { t, language } = useLanguage()
+  const isArabic = language === "ar";
 
   useEffect(() => {
     loadCourses()
@@ -41,7 +42,7 @@ export default function CoursesPage() {
     }
   }
 
-  const categories = ["Web Development", "Frontend Development", "تطوير الويب"]
+  const categories = ["web_development", "frontend_development", "web_development_ar"]
   const levels = ["beginner", "intermediate", "advanced"]
 
   return (
@@ -52,7 +53,7 @@ export default function CoursesPage() {
           <div className="text-center max-w-3xl mx-auto">
             <h1 className="text-4xl md:text-5xl font-serif font-bold text-foreground mb-4">{t("nav.courses")}</h1>
             <p className="text-xl text-muted-foreground mb-8">
-              Discover thousands of courses taught by expert instructors
+              {t("courses.discover")}
             </p>
 
             {/* Search and Filters */}
@@ -61,36 +62,36 @@ export default function CoursesPage() {
                 <div className="relative flex-1">
                   <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                   <Input
-                    placeholder="Search courses..."
+                    placeholder={t("courses.search_placeholder")}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="pl-10"
                   />
                 </div>
 
-                <Select value={selectedCategory} onValueChange={setSelectedCategory}>
+                <Select value={selectedCategory} onValueChange={setSelectedCategory} dir={isArabic ? "rtl" : "ltr"}>
                   <SelectTrigger className="w-full md:w-48">
-                    <SelectValue placeholder="Category" />
+                    <SelectValue placeholder={t("courses.category")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Categories</SelectItem>
+                    <SelectItem value="all">{t("courses.all_categories")}</SelectItem>
                     {categories.map((category) => (
                       <SelectItem key={category} value={category}>
-                        {category}
+                        {t(`category.${category.toLowerCase().replace(/ /g, '_')}`)}
                       </SelectItem>
                     ))}
                   </SelectContent>
                 </Select>
 
-                <Select value={selectedLevel} onValueChange={setSelectedLevel}>
+                <Select value={selectedLevel} onValueChange={setSelectedLevel} dir={isArabic ? "rtl" : "ltr"}>
                   <SelectTrigger className="w-full md:w-48">
-                    <SelectValue placeholder="Level" />
+                    <SelectValue placeholder={t("courses.level")} />
                   </SelectTrigger>
                   <SelectContent>
-                    <SelectItem value="all">All Levels</SelectItem>
+                    <SelectItem value="all">{t("courses.all_levels")}</SelectItem>
                     {levels.map((level) => (
                       <SelectItem key={level} value={level}>
-                        {level.charAt(0).toUpperCase() + level.slice(1)}
+                        {t(`level.${level}`)}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -124,7 +125,9 @@ export default function CoursesPage() {
         ) : (
           <>
             <div className="flex items-center justify-between mb-8">
-              <h2 className="text-2xl font-semibold text-foreground">{courses.length} courses found</h2>
+              <h2 className="text-2xl font-semibold text-foreground">
+                {t("courses.found", { count: courses.length })}
+              </h2>
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -207,7 +210,7 @@ export default function CoursesPage() {
                         )}
                       </div>
                       <Button asChild className="bg-primary hover:bg-primary/90">
-                        <Link href={`/courses/${course.id}`}>View Course</Link>
+                        <Link href={`/courses/${course.id}`}>{t("courses.view_course")}</Link>
                       </Button>
                     </div>
                   </CardFooter>
@@ -218,8 +221,8 @@ export default function CoursesPage() {
             {courses.length === 0 && (
               <div className="text-center py-12">
                 <div className="text-6xl mb-4">📚</div>
-                <h3 className="text-xl font-semibold text-foreground mb-2">No courses found</h3>
-                <p className="text-muted-foreground">Try adjusting your search criteria</p>
+                <h3 className="text-xl font-semibold text-foreground mb-2">{t("courses.empty.title")}</h3>
+                <p className="text-muted-foreground">{t("courses.empty.subtitle")}</p>
               </div>
             )}
           </>

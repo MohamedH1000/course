@@ -27,10 +27,12 @@ export default function SignUpPage() {
   const [error, setError] = useState("")
   const [loading, setLoading] = useState(false)
 
-  const { register, loginWithGoogle } = useAuth()
+  const { register, loginWithGoogle, user } = useAuth()
   const { t } = useLanguage()
   const router = useRouter()
-
+  if (user) {
+    router.push("/dashboard")
+  }
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setError("")

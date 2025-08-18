@@ -8,7 +8,7 @@ type Language = "en" | "ar"
 interface LanguageContextType {
   language: Language
   setLanguage: (lang: Language) => void
-  t: (key: string) => string
+  t: (key: string, params?: Record<string, unknown>) => string
   isRTL: boolean
 }
 
@@ -16,6 +16,28 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 
 const translations = {
   en: {
+    // Courses Page
+    "courses.discover": "Discover thousands of courses taught by expert instructors",
+    "courses.search_placeholder": "Search courses...",
+    "courses.category": "Category",
+    "courses.all_categories": "All Categories",
+    "courses.level": "Level",
+    "courses.all_levels": "All Levels",
+    "courses.found": "{count} courses found",
+    "courses.empty.title": "No courses found",
+    "courses.empty.subtitle": "Try adjusting your search criteria",
+    "courses.view_course": "View Course",
+    
+    // Categories
+    "category.web_development": "Web Development",
+    "category.frontend_development": "Frontend Development",
+    "category.web_development_ar": "تطوير الويب",
+    
+    // Levels
+    "level.beginner": "Beginner",
+    "level.intermediate": "Intermediate",
+    "level.advanced": "Advanced",
+
     // Navigation
     "nav.home": "Home",
     "nav.courses": "Courses",
@@ -98,7 +120,6 @@ const translations = {
     "dashboard.completed": "Completed",
     "dashboard.learning": "Learning",
     "dashboard.day_streak": "Day Streak",
-    "dashboard.my_courses": "My Courses",
     "dashboard.continue_learning": "Continue Learning",
     "dashboard.browse_more_courses": "Browse More Courses",
     "dashboard.learning_progress": "Learning Progress",
@@ -160,7 +181,6 @@ const translations = {
     "dashboard.library": "Library",
     "dashboard.favorites": "Favorites",
     "dashboard.recent": "Recent",
-    "dashboard.continue_learning": "Continue Learning",
     "dashboard.enrolled_courses": "Enrolled Courses",
     "dashboard.completed_courses": "Completed Courses",
     "dashboard.certificates": "Certificates",
@@ -203,8 +223,64 @@ const translations = {
     "common.edit": "Edit",
     "common.delete": "Delete",
     "common.view": "View",
+
+    // Pricing Page
+    "pricing.title": "Choose Your Learning Plan",
+    "pricing.subtitle": "Unlock your potential with our flexible pricing options designed for every learner",
+    "pricing.monthly": "Monthly",
+    "pricing.yearly": "Yearly",
+    "pricing.save": "Save 40%",
+    "pricing.most_popular": "Most Popular",
+    "pricing.processing": "Processing...",
+    "pricing.get_started_free": "Get Started Free",
+    "pricing.choose_plan": "Choose {planName}",
+    "pricing.per_month": "/month",
+    "pricing.per_year": "/year",
+    "pricing.off": "{percent}% OFF",
+    
+    // Pricing FAQ
+    "pricing.faq.title": "Frequently Asked Questions",
+    "pricing.faq.change_plan.question": "Can I change my plan anytime?",
+    "pricing.faq.change_plan.answer": "Yes, you can upgrade or downgrade your plan at any time. Changes will be reflected in your next billing cycle.",
+    "pricing.faq.payment_methods.question": "What payment methods do you accept?",
+    "pricing.faq.payment_methods.answer": "We accept all major credit cards, PayPal, and bank transfers. All payments are processed securely.",
+    "pricing.faq.free_trial.question": "Is there a free trial?",
+    "pricing.faq.free_trial.answer": "Yes, our Free plan gives you access to select courses. You can upgrade anytime to unlock all features.",
+    "pricing.faq.refunds.question": "Do you offer refunds?",
+    "pricing.faq.refunds.answer": "We offer a 30-day money-back guarantee for all paid plans. No questions asked.",
+    "pricing.faq.cancel.question": "Can I cancel my subscription?",
+    "pricing.faq.cancel.answer": "Yes, you can cancel your subscription at any time. You'll continue to have access until the end of your billing period.",
+    "pricing.faq.student_discount.question": "Do you offer student discounts?",
+    "pricing.faq.student_discount.answer": "Yes, we offer special pricing for students and educational institutions. Contact us for more details.",
+    
+    // Pricing Enterprise
+    "pricing.enterprise.title": "Need something more?",
+    "pricing.enterprise.description": "Looking for enterprise solutions, custom integrations, or bulk pricing? We'd love to work with you to create a plan that fits your organization's needs.",
+    "pricing.enterprise.contact": "Contact Sales",
   },
   ar: {
+    // Courses Page
+    "courses.discover": "اكتشف الآلاف من الدورات التي يدرسها خبراء",
+    "courses.search_placeholder": "ابحث عن دورات...",
+    "courses.category": "الفئة",
+    "courses.all_categories": "جميع الفئات",
+    "courses.level": "المستوى",
+    "courses.all_levels": "جميع المستويات",
+    "courses.found": "تم العثور على {count} دورة",
+    "courses.empty.title": "لم يتم العثور على دورات",
+    "courses.empty.subtitle": "حاول تعديل معايير البحث الخاصة بك",
+    "courses.view_course": "عرض الدورة",
+    
+    // Categories
+    "category.web_development": "تطوير الويب",
+    "category.frontend_development": "تطوير الواجهة الأمامية",
+    "category.web_development_ar": "تطوير الويب",
+    
+    // Levels
+    "level.beginner": "مبتدئ",
+    "level.intermediate": "متوسط",
+    "level.advanced": "متقدم",
+
     // Navigation
     "nav.home": "الرئيسية",
     "nav.courses": "الدورات",
@@ -390,11 +466,45 @@ const translations = {
     "common.edit": "تعديل",
     "common.delete": "حذف",
     "common.view": "عرض",
+
+    // Pricing Page
+    "pricing.title": "اختر خطة التعلم الخاصة بك",
+    "pricing.subtitle": "أطلق العنان لإمكاناتك مع خيارات الأسعار المرنة المصممة لكل متعلم",
+    "pricing.monthly": "شهري",
+    "pricing.yearly": "سنوي",
+    "pricing.save": "وفر 40%",
+    "pricing.most_popular": "الأكثر شعبية",
+    "pricing.processing": "جاري المعالجة...",
+    "pricing.get_started_free": "ابدأ مجاناً",
+    "pricing.choose_plan": "اختر {planName}",
+    "pricing.per_month": "/شهر",
+    "pricing.per_year": "/سنة",
+    "pricing.off": "خصم {percent}%",
+    
+    // Pricing FAQ
+    "pricing.faq.title": "الأسئلة الشائعة",
+    "pricing.faq.change_plan.question": "هل يمكنني تغيير خطتي في أي وقت؟",
+    "pricing.faq.change_plan.answer": "نعم، يمكنك الترقية أو الرجوع إلى خطة أدنى في أي وقت. ستنعكس التغييرات في دورة الفوترة التالية.",
+    "pricing.faq.payment_methods.question": "ما طرق الدفع التي تقبلونها؟",
+    "pricing.faq.payment_methods.answer": "نقبل جميع بطاقات الائتمان الرئيسية وPayPal والتحويلات البنكية. تتم معالجة جميع المدفوعات بشكل آمن.",
+    "pricing.faq.free_trial.question": "هل هناك فترة تجريبية مجانية؟",
+    "pricing.faq.free_trial.answer": "نعم، خطتنا المجانية تمنحك الوصول إلى دورات مختارة. يمكنك الترقية في أي وقت لفتح جميع الميزات.",
+    "pricing.faq.refunds.question": "هل تقدمون استرداد الأموال؟",
+    "pricing.faq.refunds.answer": "نقدم ضمان استرداد الأموال لمدة 30 يومًا لجميع الخطط المدفوعة. بدون أي أسئلة.",
+    "pricing.faq.cancel.question": "هل يمكنني إلغاء اشتراكي؟",
+    "pricing.faq.cancel.answer": "نعم، يمكنك إلغاء اشتراكك في أي وقت. ستستمر في الوصول حتى نهاية فترة الفوترة الخاصة بك.",
+    "pricing.faq.student_discount.question": "هل تقدمون خصومات للطلاب؟",
+    "pricing.faq.student_discount.answer": "نعم، نقدم أسعارًا خاصة للطلاب والمؤسسات التعليمية. اتصل بنا للحصول على مزيد من التفاصيل.",
+    
+    // Pricing Enterprise
+    "pricing.enterprise.title": "هل تحتاج إلى المزيد؟",
+    "pricing.enterprise.description": "هل تبحث عن حلول للمؤسسات أو تكاملات مخصصة أو أسعار بالجملة؟ نود أن نعمل معك لإنشاء خطة تناسب احتياجات مؤسستك.",
+    "pricing.enterprise.contact": "اتصل بالمبيعات",
   },
 }
 
 export function LanguageProvider({ children }: { children: React.ReactNode }) {
-  const [language, setLanguage] = useState<Language>("en")
+  const [language, setLanguage] = useState<Language>("ar")
   const [isHydrated, setIsHydrated] = useState(false)
 
   useEffect(() => {
@@ -411,8 +521,9 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     localStorage.setItem("language", language)
   }, [language])
 
-  const t = (key: string): string => {
-    return translations[language][key as keyof (typeof translations)[typeof language]] || key
+  const t = (key: string, params?: Record<string, unknown>): string => {
+    const translation = translations[language][key as keyof (typeof translations)[typeof language]] || key
+    return translation.replace(/\{(\w+)\}/g, (_, p1) => params?.[p1]?.toString() ?? '')
   }
 
   const value = {

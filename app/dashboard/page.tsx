@@ -232,7 +232,7 @@ function DashboardPage() {
         </div>
 
         {/* Main Content */}
-        <Tabs defaultValue="courses" className="w-full">
+        <Tabs defaultValue="courses" className="w-full" dir={isRTL ? "rtl" : "ltr"}>
           <TabsList className="grid w-full grid-cols-4">
             <TabsTrigger value="courses">{t("dashboard.my_courses")}</TabsTrigger>
             <TabsTrigger value="progress">{t("dashboard.progress")}</TabsTrigger>
@@ -245,10 +245,11 @@ function DashboardPage() {
               "flex items-center justify-between",
               isRTL ? "flex-row-reverse" : ""
             )}>
-              <h2 className="text-2xl font-semibold text-foreground">{t("dashboard.continue_learning")}</h2>
-              <Button variant="outline" asChild>
+               <Button variant="outline" asChild>
                 <Link href="/courses">{t("dashboard.browse_more_courses")}</Link>
               </Button>
+              <h2 className="text-2xl font-semibold text-foreground">{t("dashboard.continue_learning")}</h2>
+             
             </div>
 
             <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -456,7 +457,7 @@ function DashboardPage() {
                 <CardContent className="space-y-4">
                   <div className={cn(
                     "flex items-center gap-4",
-                    isRTL ? "flex-row-reverse" : ""
+                    isRTL ? "flex-row" : ""
                   )}>
                     <Avatar className="w-20 h-20">
                       <AvatarImage src={user?.avatar || "/placeholder.svg"} />

@@ -18,9 +18,8 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "EduPlatform - Online Learning Excellence",
-  description: "Premium online course platform with multilingual support",
-  generator: "v0.app",
+  title: "Egyptian Japanese Training Centre",
+  description: "A centre for training the students",
 }
 
 export default function RootLayout({
@@ -29,7 +28,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang="ar" suppressHydrationWarning>
       <body className={`${inter.variable} ${playfair.variable} font-sans antialiased`} suppressHydrationWarning>
         <Providers>
           <Header />
