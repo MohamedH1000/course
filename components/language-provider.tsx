@@ -17,6 +17,7 @@ const LanguageContext = createContext<LanguageContextType | undefined>(undefined
 const translations = {
   en: {
     // Courses Page
+    "copyright": "© 2025 Egyptian Japanese Training Center. All rights reserved.",
     "courses.discover": "Discover thousands of courses taught by expert instructors",
     "courses.search_placeholder": "Search courses...",
     "courses.category": "Category",
@@ -27,7 +28,7 @@ const translations = {
     "courses.empty.title": "No courses found",
     "courses.empty.subtitle": "Try adjusting your search criteria",
     "courses.view_course": "View Course",
-    
+    "name": "Egyptian Japanese Training Center",
     // Categories
     "category.web_development": "Web Development",
     "category.frontend_development": "Frontend Development",
@@ -261,6 +262,8 @@ const translations = {
   },
   ar: {
     // Courses Page
+    "name": "المركز المصري الياباني للتدريب",
+    "copyright": "© ٢٠٢٥ المركز المصري الياباني للتدريب. جميع الحقوق محفوظة.",
     "courses.discover": "اكتشف الآلاف من الدورات التي يدرسها خبراء",
     "courses.search_placeholder": "ابحث عن دورات...",
     "courses.category": "الفئة",

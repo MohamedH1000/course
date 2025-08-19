@@ -51,14 +51,17 @@ const Header = () => {
                     <div className="flex items-center justify-between h-16 sm:h-20">
                         {/* Logo */}
                         <Link href="/" className="flex items-center space-x-3 group">
-                            <div className="relative">
+                            {/* <div className="relative">
                                 <div className="w-10 h-10 bg-gradient-to-br from-primary via-primary/90 to-accent rounded-xl flex items-center justify-center shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105">
                                     <BookOpen className="h-5 w-5 text-primary-foreground transition-transform duration-300 group-hover:rotate-12" />
                                 </div>
                                 <div className="absolute inset-0 bg-gradient-to-br from-primary/20 to-accent/20 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-                            </div>
-                            <span className="text-xl sm:text-2xl font-serif font-bold text-foreground group-hover:text-primary transition-colors duration-300">
-                                EduPlatform
+                            </div> */}
+                            <img src={'/assets/Logo.jpg'} alt='logo' className='h-[50px]' />
+                            <span className="text-xl sm:text-2xl font-serif font-bold 
+                            text-foreground group-hover:text-primary 
+                            transition-colors duration-300 max-sm:text-sm">
+                                {t("name")}
                             </span>
                         </Link>
 

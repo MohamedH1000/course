@@ -13,8 +13,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { useAuth } from "@/contexts/auth-context"
 import { useLanguage } from "@/components/language-provider"
-import { BookOpen, Eye, EyeOff, Loader2 } from "lucide-react"
-import { FcGoogle } from "react-icons/fc"
+import { Eye, EyeOff, Loader2 } from "lucide-react"
 
 export default function SignUpPage() {
   const [name, setName] = useState("")
