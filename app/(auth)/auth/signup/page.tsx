@@ -189,7 +189,7 @@ export default function SignUpPage() {
                 )}
               </Button>
             </form>
-
+{/* 
             <div className="mt-6">
               <div className="relative">
                 <div className="absolute inset-0 flex items-center">
@@ -222,7 +222,7 @@ export default function SignUpPage() {
                 <FcGoogle className="mr-2 h-4 w-4" />
                 {t("auth.signup.google")}
               </Button>
-            </div>
+            </div> */}
 
             <div className="mt-6 text-center">
               <p className="text-sm text-muted-foreground">
