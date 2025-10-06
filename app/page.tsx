@@ -7,15 +7,14 @@ import Stats from "./components/Stats"
 export default function HomePage() {
   return (
     <div className="min-h-screen bg-background">
-    
       {/* Hero Section */}
       <Hero />
 
-      {/* Features Section */}
-      <Features />
-
       {/* Stats Section */}
       <Stats />
+
+      {/* Features Section */}
+      <Features />
 
       {/* Footer */}
       <Footer />

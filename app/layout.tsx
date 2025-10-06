@@ -18,8 +18,8 @@ const playfair = Playfair_Display({
 })
 
 export const metadata: Metadata = {
-  title: "Egyptian Japanese Training Centre",
-  description: "A centre for training the students",
+  title: "المركز المصري الياباني للتدريب",
+  description: "جسر حيوي بين النظرية والتطبيق لسد الفجوة بين مخرجات التعليم ومتطلبات سوق العمل",
 }
 
 export default function RootLayout({

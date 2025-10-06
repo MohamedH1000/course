@@ -75,6 +75,14 @@ const Header = () => {
                                     pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'
                                 }`} />
                             </Link>
+                            <Link href="/certificates" className={`relative transition-all duration-300 group py-2 ${
+                                pathname === '/certificates' ? 'text-primary font-medium' : 'text-foreground hover:text-primary'
+                            }`}>
+                                {t("nav.certificates")}
+                                <span className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 ${
+                                    pathname === '/certificates' ? 'w-full' : 'w-0 group-hover:w-full'
+                                }`} />
+                            </Link>
                             <Link href="/courses" className={`relative transition-all duration-300 group py-2 ${
                                 pathname.startsWith('/courses') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'
                             }`}>
@@ -83,20 +91,28 @@ const Header = () => {
                                     pathname.startsWith('/courses') ? 'w-full' : 'w-0 group-hover:w-full'
                                 }`} />
                             </Link>
-                            <Link href="/pricing" className={`relative transition-all duration-300 group py-2 ${
+                            <Link href="/governance" className={`relative transition-all duration-300 group py-2 ${
+                                pathname.startsWith('/governance') ? 'text-primary font-medium' : 'text-foreground hover:text-primary'
+                            }`}>
+                                {t("nav.governance")}
+                                <span className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 ${
+                                    pathname.startsWith('/governance') ? 'w-full' : 'w-0 group-hover:w-full'
+                                }`} />
+                            </Link>
+                            {/* <Link href="/pricing" className={`relative transition-all duration-300 group py-2 ${
                                 pathname === '/pricing' ? 'text-primary font-medium' : 'text-foreground hover:text-primary'
                             }`}>
                                 {t("nav.pricing")}
                                 <span className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 ${
                                     pathname === '/pricing' ? 'w-full' : 'w-0 group-hover:w-full'
                                 }`} />
-                            </Link>
-                            <Link href="/about" className={`relative transition-all duration-300 group py-2 ${
-                                pathname === '/about' ? 'text-primary font-medium' : 'text-foreground hover:text-primary'
+                            </Link> */}
+                            <Link href="/contact" className={`relative transition-all duration-300 group py-2 ${
+                                pathname === '/contact' ? 'text-primary font-medium' : 'text-foreground hover:text-primary'
                             }`}>
-                                {t("nav.about")}
+                                {t("nav.contact")}
                                 <span className={`absolute bottom-0 left-0 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 ${
-                                    pathname === '/about' ? 'w-full' : 'w-0 group-hover:w-full'
+                                    pathname === '/contact' ? 'w-full' : 'w-0 group-hover:w-full'
                                 }`} />
                             </Link>
                         </nav>
@@ -183,102 +199,85 @@ const Header = () => {
                     <div className="px-6 pb-8 pt-4">
                         {/* Header */}
                         <div className="text-center mb-8">
-                            <h3 className="text-xl font-semibold text-foreground mb-2">Navigation</h3>
+                            <h3 className="text-xl font-semibold text-foreground mb-2">القائمة</h3>
                             <div className="w-16 h-0.5 bg-gradient-to-r from-primary to-accent mx-auto rounded-full" />
                         </div>
 
-                        {/* Navigation Grid */}
-                        <nav className="grid grid-cols-2 gap-4 mb-8">
+                        {/* Navigation Grid - Updated to match desktop */}
+                        <nav className="flex flex-col space-y-1 mb-8">
                             <Link
                                 href="/"
                                 onClick={closeMobileMenu}
-                                className={`group flex flex-col items-center p-4 rounded-2xl transition-all duration-300 ${
+                                className={`relative transition-all duration-300 group py-3 px-4 rounded-lg ${
                                     pathname === '/' 
-                                        ? 'bg-primary/10 border-2 border-primary/20 shadow-lg' 
-                                        : 'bg-card/50 border-2 border-transparent hover:border-primary/20 hover:bg-primary/5'
+                                        ? 'text-primary font-medium bg-primary/5' 
+                                        : 'text-foreground hover:text-primary hover:bg-primary/5'
                                 }`}
                             >
-                                <div className={`p-3 rounded-xl mb-3 transition-all duration-300 ${
-                                    pathname === '/' 
-                                        ? 'bg-primary text-primary-foreground shadow-lg' 
-                                        : 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110'
-                                }`}>
-                                    <Home className="w-6 h-6" />
-                                </div>
-                                <span className={`text-sm font-medium transition-colors duration-300 ${
-                                    pathname === '/' ? 'text-primary' : 'text-foreground group-hover:text-primary'
-                                }`}>
-                                    {t("nav.home")}
-                                </span>
+                                {t("nav.home")}
+                                <span className={`absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 ${
+                                    pathname === '/' ? 'w-full' : 'w-0 group-hover:w-full'
+                                }`} />
                             </Link>
-
+                            
+                            <Link
+                                href="/certificates"
+                                onClick={closeMobileMenu}
+                                className={`relative transition-all duration-300 group py-3 px-4 rounded-lg ${
+                                    pathname === '/certificates' 
+                                        ? 'text-primary font-medium bg-primary/5' 
+                                        : 'text-foreground hover:text-primary hover:bg-primary/5'
+                                }`}
+                            >
+                                {t("nav.certificates")}
+                                <span className={`absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 ${
+                                    pathname === '/certificates' ? 'w-full' : 'w-0 group-hover:w-full'
+                                }`} />
+                            </Link>
+                            
                             <Link
                                 href="/courses"
                                 onClick={closeMobileMenu}
-                                className={`group flex flex-col items-center p-4 rounded-2xl transition-all duration-300 ${
+                                className={`relative transition-all duration-300 group py-3 px-4 rounded-lg ${
                                     pathname.startsWith('/courses') 
-                                        ? 'bg-primary/10 border-2 border-primary/20 shadow-lg' 
-                                        : 'bg-card/50 border-2 border-transparent hover:border-primary/20 hover:bg-primary/5'
+                                        ? 'text-primary font-medium bg-primary/5' 
+                                        : 'text-foreground hover:text-primary hover:bg-primary/5'
                                 }`}
                             >
-                                <div className={`p-3 rounded-xl mb-3 transition-all duration-300 ${
-                                    pathname.startsWith('/courses') 
-                                        ? 'bg-primary text-primary-foreground shadow-lg' 
-                                        : 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110'
-                                }`}>
-                                    <GraduationCap className="w-6 h-6" />
-                                </div>
-                                <span className={`text-sm font-medium transition-colors duration-300 ${
-                                    pathname.startsWith('/courses') ? 'text-primary' : 'text-foreground group-hover:text-primary'
-                                }`}>
-                                    {t("nav.courses")}
-                                </span>
+                                {t("nav.courses")}
+                                <span className={`absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 ${
+                                    pathname.startsWith('/courses') ? 'w-full' : 'w-0 group-hover:w-full'
+                                }`} />
                             </Link>
-
+                            
                             <Link
-                                href="/pricing"
+                                href="/governance"
                                 onClick={closeMobileMenu}
-                                className={`group flex flex-col items-center p-4 rounded-2xl transition-all duration-300 ${
-                                    pathname === '/pricing' 
-                                        ? 'bg-primary/10 border-2 border-primary/20 shadow-lg' 
-                                        : 'bg-card/50 border-2 border-transparent hover:border-primary/20 hover:bg-primary/5'
+                                className={`relative transition-all duration-300 group py-3 px-4 rounded-lg ${
+                                    pathname.startsWith('/governance') 
+                                        ? 'text-primary font-medium bg-primary/5' 
+                                        : 'text-foreground hover:text-primary hover:bg-primary/5'
                                 }`}
                             >
-                                <div className={`p-3 rounded-xl mb-3 transition-all duration-300 ${
-                                    pathname === '/pricing' 
-                                        ? 'bg-primary text-primary-foreground shadow-lg' 
-                                        : 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110'
-                                }`}>
-                                    <CreditCard className="w-6 h-6" />
-                                </div>
-                                <span className={`text-sm font-medium transition-colors duration-300 ${
-                                    pathname === '/pricing' ? 'text-primary' : 'text-foreground group-hover:text-primary'
-                                }`}>
-                                    {t("nav.pricing")}
-                                </span>
+                                {t("nav.governance")}
+                                <span className={`absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 ${
+                                    pathname.startsWith('/governance') ? 'w-full' : 'w-0 group-hover:w-full'
+                                }`} />
                             </Link>
-
+                            
                             <Link
-                                href="/about"
+                                href="/contact"
                                 onClick={closeMobileMenu}
-                                className={`group flex flex-col items-center p-4 rounded-2xl transition-all duration-300 ${
-                                    pathname === '/about' 
-                                        ? 'bg-primary/10 border-2 border-primary/20 shadow-lg' 
-                                        : 'bg-card/50 border-2 border-transparent hover:border-primary/20 hover:bg-primary/5'
+                                className={`relative transition-all duration-300 group py-3 px-4 rounded-lg ${
+                                    pathname === '/contact' 
+                                        ? 'text-primary font-medium bg-primary/5' 
+                                        : 'text-foreground hover:text-primary hover:bg-primary/5'
                                 }`}
                             >
-                                <div className={`p-3 rounded-xl mb-3 transition-all duration-300 ${
-                                    pathname === '/about' 
-                                        ? 'bg-primary text-primary-foreground shadow-lg' 
-                                        : 'bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground group-hover:scale-110'
-                                }`}>
-                                    <Info className="w-6 h-6" />
-                                </div>
-                                <span className={`text-sm font-medium transition-colors duration-300 ${
-                                    pathname === '/about' ? 'text-primary' : 'text-foreground group-hover:text-primary'
-                                }`}>
-                                    {t("nav.about")}
-                                </span>
+                                {t("nav.contact")}
+                                <span className={`absolute bottom-0 left-4 right-4 h-0.5 bg-gradient-to-r from-primary to-accent transition-all duration-300 ${
+                                    pathname === '/contact' ? 'w-full' : 'w-0 group-hover:w-full'
+                                }`} />
                             </Link>
                         </nav>
 

@@ -73,7 +73,7 @@ export default function CoursesPage() {
   ]
 
   const CourseCard = ({ course }: { course: typeof courses[0] }) => (
-    <Card className="group hover:shadow-lg transition-all duration-300">
+    <Card className="group hover:shadow-lg transition-all duration-300" dir={isRTL ? "rtl" : "ltr"}>
       <div className="relative overflow-hidden rounded-t-lg">
         <div className="w-full h-48 bg-gradient-to-br from-primary/20 to-accent/20 flex items-center justify-center">
           <BookOpen className="h-12 w-12 text-primary" />
@@ -151,7 +151,7 @@ export default function CoursesPage() {
             <span>{t("course.progress")}</span>
             <span>{course.progress}%</span>
           </div>
-          <Progress value={course.progress} className="h-2" />
+          <Progress value={course.progress} className="h-2"    />
         </div>
 
         <div className={cn(
@@ -168,11 +168,11 @@ export default function CoursesPage() {
   )
 
   const CourseListItem = ({ course }: { course: typeof courses[0] }) => (
-    <Card className="hover:shadow-md transition-all duration-300">
+    <Card className="hover:shadow-md transition-all duration-300" dir={isRTL ? "rtl" : "ltr"}>
       <CardContent className="p-6">
         <div className={cn(
           "flex gap-6",
-          isRTL ? "flex-row-reverse" : ""
+          isRTL ? "flex-row" : " flex-row-reverse"
         )}>
           <div className="w-32 h-24 bg-gradient-to-br from-primary/20 to-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
             <BookOpen className="h-8 w-8 text-primary" />
@@ -181,7 +181,7 @@ export default function CoursesPage() {
           <div className="flex-1 space-y-3">
             <div className={cn(
               "flex items-start justify-between",
-              isRTL ? "flex-row-reverse" : ""
+              isRTL ? "flex-row" : "flex-row-reverse"
             )}>
               <div className="space-y-1">
                 <h3 className="font-semibold text-lg">{course.title}</h3>
@@ -200,7 +200,7 @@ export default function CoursesPage() {
 
             <div className={cn(
               "flex items-center gap-6 text-sm text-muted-foreground",
-              isRTL ? "flex-row-reverse" : ""
+              isRTL ? "flex-row" : "flex-row-reverse"
             )}>
               <div className={cn(
                 "flex items-center gap-1",
@@ -211,21 +211,21 @@ export default function CoursesPage() {
               </div>
               <div className={cn(
                 "flex items-center gap-1",
-                isRTL ? "flex-row-reverse" : ""
+                isRTL ? "flex-row" : "flex-row-reverse"
               )}>
                 <BookOpen className="h-3 w-3" />
                 <span>{course.lessons} {t("course.lessons")}</span>
               </div>
               <div className={cn(
                 "flex items-center gap-1",
-                isRTL ? "flex-row-reverse" : ""
+                isRTL ? "flex-row" : "flex-row-reverse"
               )}>
                 <Users className="h-3 w-3" />
                 <span>{course.students} {t("course.students")}</span>
               </div>
               <div className={cn(
                 "flex items-center gap-1",
-                isRTL ? "flex-row-reverse" : ""
+                isRTL ? "flex-row" : "flex-row-reverse"
               )}>
                 <Star className="h-3 w-3 fill-yellow-400 text-yellow-400" />
                 <span>{course.rating}</span>
@@ -234,12 +234,12 @@ export default function CoursesPage() {
 
             <div className={cn(
               "flex items-center justify-between",
-              isRTL ? "flex-row-reverse" : ""
+              isRTL ? "flex-row" : "flex-row-reverse"
             )}>
               <div className="flex-1 max-w-xs space-y-1">
                 <div className={cn(
                   "flex justify-between text-sm",
-                  isRTL ? "flex-row-reverse" : ""
+                  isRTL ? "flex-row" : "flex-row-reverse"
                 )}>
                   <span>{t("course.progress")}</span>
                   <span>{course.progress}%</span>
