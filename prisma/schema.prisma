@@ -224,12 +224,15 @@ model Course {
   categoryId String?
   category   Category? @relation(fields: [categoryId], references: [id])
   
-  // Course structure
-  modules      Module[]
-  instructors  CourseInstructor[]
-  enrollments  Enrollment[]
-  reviews      Review[]
-  forum        Forum?
+   // Course structure
+   modules      Module[]
+   instructors  CourseInstructor[]
+   enrollments  Enrollment[]
+   reviews      Review[]
+   forum        Forum?
+
+   // Guest bookings
+   guestBookings GuestBooking[]
   
   // Analytics
   viewCount     Int @default(0)
@@ -240,7 +243,33 @@ model Course {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   
-  @@map("courses")
+   @@map("courses")
+}
+
+model GuestBooking {
+  id        String @id @default(cuid())
+  courseId  String
+  course    Course @relation(fields: [courseId], references: [id])
+
+  // Personal Information
+  firstName String
+  lastName  String
+  fullName  String
+  email     String
+  phone     String?
+  location  String
+
+  // Additional Information
+  message   String?
+
+  // Booking Status
+  status    String @default("pending") // pending, confirmed, cancelled, completed
+
+  // Timestamps
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("guest_bookings")
 }
 
 model CourseInstructor {
