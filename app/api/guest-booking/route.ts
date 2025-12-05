@@ -15,15 +15,6 @@ const bookingSchema = z.object({
   message: z.string().optional()
 })
 
-// Email configuration
-const transporter = nodemailer.createTransporter({
-  service: 'gmail',
-  auth: {
-    user: process.env.GMAIL_EMAIL,
-    pass: process.env.GMAIL_APP_PASSWORD
-  }
-})
-
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
@@ -63,6 +54,15 @@ export async function POST(request: NextRequest) {
 
     // Send email notification (using English for now, can be enhanced for multi-language)
     try {
+      // Create email transporter
+      const transporter = nodemailer.createTransporter({
+        service: 'gmail',
+        auth: {
+          user: process.env.GMAIL_EMAIL,
+          pass: process.env.GMAIL_APP_PASSWORD
+        }
+      })
+
       const mailOptions = {
         from: process.env.GMAIL_EMAIL,
         to: process.env.CENTER_EMAIL || 'center@example.com', // Center's email
