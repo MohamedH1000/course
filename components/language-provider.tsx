@@ -14,7 +14,7 @@ interface LanguageContextType {
 
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined)
 
-const translations = {
+export const translations = {
   en: {
     // Courses Page
     "copyright": "© 2025 Egyptian Japanese Training Center. All rights reserved.",
@@ -33,7 +33,7 @@ const translations = {
     "category.web_development": "Web Development",
     "category.frontend_development": "Frontend Development",
     "category.web_development_ar": "تطوير الويب",
-    
+
     // Levels
     "level.beginner": "Beginner",
     "level.intermediate": "Intermediate",
@@ -116,7 +116,7 @@ const translations = {
     "dashboard.title": "Dashboard",
     "dashboard.welcome": "Welcome back",
     "dashboard.good_morning": "Good morning",
-    "dashboard.good_afternoon": "Good afternoon", 
+    "dashboard.good_afternoon": "Good afternoon",
     "dashboard.good_evening": "Good evening",
     "dashboard.ready_to_continue": "Ready to continue your learning journey?",
     "dashboard.manage_videos": "Manage Videos",
@@ -241,7 +241,7 @@ const translations = {
     "certificates.details.date": "Issue Date",
     "certificates.details.code": "Certificate Code",
     "certificates.download": "Download Certificate",
-    
+
     // Pricing Page
     "pricing.title": "Choose Your Learning Plan",
     "pricing.subtitle": "Unlock your potential with our flexible pricing options designed for every learner",
@@ -255,7 +255,7 @@ const translations = {
     "pricing.per_month": "/month",
     "pricing.per_year": "/year",
     "pricing.off": "{percent}% OFF",
-    
+
     // Pricing FAQ
     "pricing.faq.title": "Frequently Asked Questions",
     "pricing.faq.change_plan.question": "Can I change my plan anytime?",
@@ -270,7 +270,7 @@ const translations = {
     "pricing.faq.cancel.answer": "Yes, you can cancel your subscription at any time. You'll continue to have access until the end of your billing period.",
     "pricing.faq.student_discount.question": "Do you offer student discounts?",
     "pricing.faq.student_discount.answer": "Yes, we offer special pricing for students and educational institutions. Contact us for more details.",
-    
+
     // Pricing Enterprise
     "pricing.enterprise.title": "Need something more?",
     "pricing.enterprise.description": "Looking for enterprise solutions, custom integrations, or bulk pricing? We'd love to work with you to create a plan that fits your organization's needs.",
@@ -304,7 +304,7 @@ const translations = {
     "ejc.stats.courses": "Training Courses",
     "ejc.stats.instructors": "Distinguished Instructors",
     "ejc.stats.successRate": "Success Rate",
-    
+
     // Governance Page
     "governance.title": "Governance Policies",
     "governance.studentCommitment": "Student Commitment",
@@ -312,12 +312,12 @@ const translations = {
     "governance.studentCommitment.2": "The student is committed to maintaining ethical communication with the instructor and colleagues inside the training hall, whether in-person or online.",
     "governance.studentCommitment.3": "The student is committed to completing the required activities or exams to successfully complete the training course or training program.",
     "governance.studentCommitment.4": "It is prohibited to issue any certificate for any training course or training program without completing the program in full with all activities and exams that may accompany each course/program, as well as full compliance with the attendance and departure policy.",
-    
+
     "governance.attendancePolicy": "Attendance Policy",
     "governance.attendancePolicy.1": "In case of attending the training center, the student is committed to arriving for registration before the agreed time by fifteen minutes, and the instructor by 30 minutes before the start of the course/training program.",
     "governance.attendancePolicy.2": "In case of online training (remote), the student is automatically registered and their attendance rate is automatically calculated on the platform. The student must enter the platform before the time by five minutes, and the instructor by ten minutes.",
     "governance.attendancePolicy.3": "The attendance rate in training courses, whether in-person or online, must not be less than 75% of the total training hours for each training program in order to receive a course completion certificate.",
-    
+
     "governance.instructorCommitment": "Instructor Commitment",
     "governance.instructorCommitment.1": "The instructor acknowledges and declares that the content provided for the courses and students is appropriate for the training course or training program, and that the content provided to students is not copied from any other website.",
     "governance.instructorCommitment.2": "The instructor acknowledges and declares that the content of the training package does not violate the regulations, decisions and regulatory legislation in force in the country.",
@@ -442,12 +442,12 @@ const translations = {
     "courses.empty.title": "لم يتم العثور على دورات",
     "courses.empty.subtitle": "حاول تعديل معايير البحث الخاصة بك",
     "courses.view_course": "عرض الدورة",
-    
+
     // Categories
     "category.web_development": "تطوير الويب",
     "category.frontend_development": "تطوير الواجهة الأمامية",
     "category.web_development_ar": "تطوير الويب",
-    
+
     // Levels
     "level.beginner": "مبتدئ",
     "level.intermediate": "متوسط",
@@ -457,7 +457,7 @@ const translations = {
     "nav.home": "عن المركز",
     "nav.courses": "الدورات",
     "nav.certificates": "تتبع الشهادات",
-        "nav.governance": "الحوكمة",
+    "nav.governance": "الحوكمة",
     "nav.pricing": "الأسعار",
     "nav.about": "حولنا",
     "nav.contact": "اتصل بنا",
@@ -557,7 +557,7 @@ const translations = {
     "dashboard.completed_courses": "الدورات المكتملة",
     "dashboard.certificates": "الشهادات",
     "dashboard.good_morning": "صباح الخير",
-    "dashboard.good_afternoon": "مساء الخير", 
+    "dashboard.good_afternoon": "مساء الخير",
     "dashboard.good_evening": "مساء الخير",
     "dashboard.ready_to_continue": "هل أنت مستعد لمتابعة رحلة التعلم؟",
     "dashboard.manage_videos": "إدارة الفيديوهات",
@@ -655,7 +655,7 @@ const translations = {
     "certificates.details.date": "تاريخ الإصدار",
     "certificates.details.code": "رمز الشهادة",
     "certificates.download": "تحميل الشهادة",
-    
+
     // Pricing Page
     "pricing.title": "اختر خطة التعلم الخاصة بك",
     "pricing.subtitle": "أطلق العنان لإمكاناتك مع خيارات الأسعار المرنة المصممة لكل متعلم",
@@ -669,7 +669,7 @@ const translations = {
     "pricing.per_month": "/شهر",
     "pricing.per_year": "/سنة",
     "pricing.off": "خصم {percent}%",
-    
+
     // Pricing FAQ
     "pricing.faq.title": "الأسئلة الشائعة",
     "pricing.faq.change_plan.question": "هل يمكنني تغيير خطتي في أي وقت؟",
@@ -684,7 +684,7 @@ const translations = {
     "pricing.faq.cancel.answer": "نعم، يمكنك إلغاء اشتراكك في أي وقت. ستستمر في الوصول حتى نهاية فترة الفوترة الخاصة بك.",
     "pricing.faq.student_discount.question": "هل تقدمون خصومات للطلاب؟",
     "pricing.faq.student_discount.answer": "نعم، نقدم أسعارًا خاصة للطلاب والمؤسسات التعليمية. اتصل بنا للحصول على مزيد من التفاصيل.",
-    
+
     // Pricing Enterprise
     "pricing.enterprise.title": "هل تحتاج إلى المزيد؟",
     "pricing.enterprise.description": "هل تبحث عن حلول للمؤسسات أو تكاملات مخصصة أو أسعار بالجملة؟ نود أن نعمل معك لإنشاء خطة تناسب احتياجات مؤسستك.",
@@ -718,7 +718,7 @@ const translations = {
     "ejc.stats.courses": "دورة تدريبية",
     "ejc.stats.instructors": "مدرب متميز",
     "ejc.stats.successRate": "معدل نجاح",
-    
+
     // Governance Page
     "governance.title": "سياسات الحوكمة",
     "governance.studentCommitment": "التزام المتدرب",
@@ -726,12 +726,12 @@ const translations = {
     "governance.studentCommitment.2": "يلتزم المتدرب بالحفاظ على أخلاقيات التواصل مع المدرب ، ومع زملاؤه داخل قاعة التدريب سواء الحضور أو عن بعد.",
     "governance.studentCommitment.3": "يلتزم المتدرب بإتمام الأنشطة أوالاختبارات المطلوبة لإتمام الدورة التدريبية أو البرنامج التدريبي بنجاح.",
     "governance.studentCommitment.4": "يمنع إعطاء أي شهادة لأي دورة تدريبية أو برنامج تدريبي دون إتمام البرنامج كامل وبكل الأنشطة والاختبارات التي قد تكون مصاحبة لكل دورة/برنامج وكذلك الالتزام التام بسياسة الحضور والانصراف",
-    
+
     "governance.attendancePolicy": "سياسة الحضور والانصراف",
     "governance.attendancePolicy.1": "في حال الحضور لمقر التدريب يلتزم المتدرب بالوصول  للتسجيل قبل الموعد المتفق عليه بخمس عشر دقيقة ، والمدرب ب 30 دقيقة قبل موعد بدأ الدورة / البرنامج التدريبي.",
     "governance.attendancePolicy.2": "في حال التدريب أونلاين (عن بعد ) يتم تسجيل المتدرب تلقائيا واحتساب نسبة حضوره اوتوماتيكيا على المنصة ويجب دخول المتدرب إلى المنصة قبل الموعد بخمس دقائق ، والمدرب بعشر دقائق.",
     "governance.attendancePolicy.3": "نسبة الحضور في الدورات التدريبية سواء الحضوري أو عن بعد يلزم أن لاتقل عن 75 % من إجمالي ساعات التدريب الخاصة بكل برنامج تدريبي لكي يتم استلام شهادة إتمام الدورة التدريبية.",
-    
+
     "governance.instructorCommitment": "التزام المدرب",
     "governance.instructorCommitment.1": "يقر  المدرب  بالتالي  : يتعهد المدرب ويقربأن المحتوى المقدم للدورات والمتدربين محتوى مناسب للدورة التدريبية أو البرنامج التدريبي  وأن المحتوى الذي يتم تقديمه للمتدربين غير منسوخ من أي موقع آخر.",
     "governance.instructorCommitment.2": "يتعهد  المدرب  ويقر  بأن المحتوى الخاص بالحقيبة التدريبية غير مخالف للأنظمة والقرارات والتشريعات التنظيمية المعمول بها داخل البلاد.",
